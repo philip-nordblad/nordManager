@@ -1,1 +1,3 @@
 # nordManager
+
+### This project is created to simplify the usage of multiuple applications and create a one-multi purpose application regarding employee scheduling, sales reports, and other features coming in the future.
