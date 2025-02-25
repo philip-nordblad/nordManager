@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %} Login {% endblock %}</title>
+  </head>
+  <body>
+    {% block content%}
+    <div class="login-container">
+      <h2>Login</h2>
+
+      <form action="{{ url_for('auth.login') }}" method="post">
+        <!-- Added line -->
+        {{ form.csrf_token }}
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <p>
+        Don't have an account?
+        <a href="{{ url_for('auth.register') }}">Register here</a>
+      </p>
+    </div>
+    {% endblock %}
+  </body>
+</html>

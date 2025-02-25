@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    {% block styles %}
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() if bootstrap else '' }}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css')}}"
+    />
+    {% endblock %}
+
+    <title>{% block title%}Base{% endblock %}</title>
+    {% endblock %}
+  </head>
+
+  <body>
+    <!--Flash Messages-->
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+      <li>{{message}}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+    <p><a href="{{url_for('auth.register')}}">Register here</a></p>
+    <!-- Your page content -->
+    {% block content %}{% endblock %} {% block scripts %}
+    <!-- Optional JavaScript -->
+    {{ bootstrap.load_js() if bootstrap else '' }} {% endblock %}
+  </body>
+</html>
