@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Availability Form</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <script>
+      function toggleTimeFields(checkbox) {
+        const dayDiv = checkbox.closest(".day-container");
+        const timeFields = dayDiv.querySelector(".time-fields");
+        if (checkbox.checked) {
+          timeFields.style.display = "none";
+        } else {
+          timeFields.style.display = "block";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Availability Form</h1>
+    <form method="POST" action="{{ url_for('schedule.add_availability') }}">
+      {{ form.csrf_token() }}
+      <!-- CSRF token -->
+
+      {% for i in range(days_of_week|length) %}
+      <div class="day-container">
+        <strong>{{ days_of_week[i] }}</strong>
+        {{ form.days[i].available.label }} {{ form.days[i].available }} {{
+        form.days[i].all_day.label }} {{
+        form.days[i].all_day(onchange="toggleTimeFields(this)") }}
+        <div class="time-fields">
+          {{ form.days[i].start_time.label }} {{ form.days[i].start_time }} {{
+          form.days[i].end_time.label }} {{ form.days[i].end_time }}
+        </div>
+      </div>
+      {% endfor %}
+      <button type="submit" name="submit">Submit</button>
+    </form>
+
+    <script>
+      // Initialize the form to hide time fields if "All Day" is checked
+      document
+        .querySelectorAll('input[name$="-all_day"]')
+        .forEach((checkbox) => {
+          toggleTimeFields(checkbox);
+        });
+    </script>
+  </body>
+</html>

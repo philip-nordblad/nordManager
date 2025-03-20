@@ -5,6 +5,7 @@ import secrets
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+from flask_wtf.csrf import CSRFProtect
 
 
 
@@ -28,10 +29,11 @@ def create_app(test_config=None):
     login_manager.init_app(app)
     bootstrap = Bootstrap(app)
     db.init_app(app)
+    csrf = CSRFProtect(app)
 
     
     #import models to initialize database
-    from .models import User
+    from .models import User, Shift
 
     #Create tables
     with app.app_context():
@@ -52,5 +54,15 @@ def create_app(test_config=None):
 
     from .auth import bp as auth_bp
     app.register_blueprint(auth_bp)
+
+    from .schedule import bp as schedule_bp
+    app.register_blueprint(schedule_bp)
+
+
+    
+
+
+
+
 
     return app

@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms import StringField, PasswordField, SubmitField, SelectField, DateTimeField, SubmitField, TimeField, FieldList, FormField, BooleanField
+from wtforms.validators import DataRequired, Length, EqualTo, Optional
+from datetime import datetime
 
 
 class RegistrationForm(FlaskForm):
@@ -15,4 +16,22 @@ class LoginForm(FlaskForm):
     name = StringField('Name',validators = [DataRequired()])
     password = PasswordField('Password', validators = [DataRequired()])
     submit = SubmitField('Login')
+
+class ShiftForm(FlaskForm):
+
+    start_time = DateTimeField('Start Time',format ='%Y-%m-%d %H:%M',validators=[DataRequired()])
+    end_time = DateTimeField('End Time', format='%Y-%m-%d %H:%M', validators =[DataRequired()])
+    submit = SubmitField('Create Shift')
+    
+class DayAvailabilityForm(FlaskForm):
+    available = BooleanField("Available", default=False)
+    all_day = BooleanField("All Day", default=False)
+    start_time = TimeField("Start Time", validators=[Optional()])
+    end_time = TimeField("End Time", validators=[Optional()])
+
+
+# Define the main form
+class AvailabilityForm(FlaskForm):
+    days = FieldList(FormField(DayAvailabilityForm), min_entries=7)
+    submit = SubmitField("Submit")
 
