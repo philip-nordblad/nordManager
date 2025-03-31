@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template
 import secrets
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required
 from flask_bootstrap import Bootstrap
 from flask_wtf.csrf import CSRFProtect
 
@@ -24,7 +24,7 @@ def create_app(test_config=None):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nordManager.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-        
+    login_manager.login_view = 'auth.login'
 
     login_manager.init_app(app)
     bootstrap = Bootstrap(app)
@@ -49,6 +49,7 @@ def create_app(test_config=None):
 
 
     @app.route('/')
+    @login_required
     def index():
         return render_template('index.html')
 

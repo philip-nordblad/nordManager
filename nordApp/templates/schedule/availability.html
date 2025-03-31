@@ -1,3 +1,4 @@
+{% extends "index.html" %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,11 +22,14 @@
     </script>
   </head>
   <body>
+    {% block content%}
     <h1>Availability Form</h1>
     <form method="POST" action="{{ url_for('schedule.add_availability') }}">
       {{ form.csrf_token() }}
       <!-- CSRF token -->
-
+      <div class="hour-container">
+        {{form.total_hours.label}} {{form.total_hours}}
+      </div>
       {% for i in range(days_of_week|length) %}
       <div class="day-container">
         <strong>{{ days_of_week[i] }}</strong>
@@ -49,5 +53,6 @@
           toggleTimeFields(checkbox);
         });
     </script>
+    {% endblock%}
   </body>
 </html>

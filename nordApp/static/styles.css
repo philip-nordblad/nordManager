@@ -111,3 +111,19 @@ button[type="submit"]:hover {
         margin-bottom: 10px;
     }
 }
+
+/* Hour Container */
+.hour-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.hour-container strong {
+    font-size: 18px;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+}

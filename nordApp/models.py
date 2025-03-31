@@ -19,11 +19,12 @@ class User(db.Model,UserMixin):
 
 class Shift(db.Model):
 
-    __tablename_ = "shift"
+    __tablename__ = "shift"
 
-    id = db.Column(db.Integer,primary_key=True)
-    employee_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    employee_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
+    day = db.Column(db.String, nullable=False)  # stores the day of the shift
 
 
